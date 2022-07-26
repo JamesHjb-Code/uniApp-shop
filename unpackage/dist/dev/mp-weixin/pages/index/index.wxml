@@ -1,0 +1,2 @@
+<view class="content"><<<<<<< HEAD<image class="logo" src="/static/logo.png"></image><view class="text-area"><text class="title">{{title}}</text></view>=======
+>>>>>>> 3108c4c (uniapp底部菜单栏)</view>
