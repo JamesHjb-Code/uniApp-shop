@@ -1,0 +1,20 @@
+{
+  "name": "uniapp-shop",
+  "version": "1.0.0",
+  "description": "uniApp+vue+nodejs+express+mysql",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JamesHjb-Code/uniApp-shop.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JamesHjb-Code/uniApp-shop/issues"
+  },
+  "homepage": "https://github.com/JamesHjb-Code/uniApp-shop#readme"
+}
