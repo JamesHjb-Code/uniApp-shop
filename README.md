@@ -1,2 +1,2 @@
 # uniApp-shop
-uniApp+nodejs+express
+uniApp+vue+nodejs+express+mysql
