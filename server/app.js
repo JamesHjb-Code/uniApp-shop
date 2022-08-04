@@ -7,7 +7,25 @@ const app = express()
 const cors = require('cors')
 app.use(cors())
 
-// 开启服务器
+// 封装错误函数的中间件(放在模块路由前)
+app.use((req,res,next)=>{
+	// status：1表示错误情况
+		res.lose = (err,status = 1)=>{
+			res.send({
+				status,
+				message:instanceof Error ?err.message:err,
+			})
+		}
+		next()
+})
+
+// 导入并使用首页路由模块
+const homeRouter = require('./router/home')
+app.use('/home',homeRouter)
+
+// 配置服务器
+const port = 3007
+cosnt host = 'localhost'
 app.listen(3007,()=>{
-	console.log('api serve running at http://localhost:3007')
+	console.log('api serve running at http://${host}:${port}')
 })
