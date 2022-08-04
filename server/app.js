@@ -13,7 +13,7 @@ app.use((req,res,next)=>{
 		res.lose = (err,status = 1)=>{
 			res.send({
 				status,
-				message:instanceof Error ?err.message:err,
+				message:err instanceof Error ?err.message:err,
 			})
 		}
 		next()
@@ -24,8 +24,8 @@ const homeRouter = require('./router/home')
 app.use('/home',homeRouter)
 
 // 配置服务器
-const port = 3007
-cosnt host = 'localhost'
-app.listen(3007,()=>{
+const port = 3006
+const host = '127.0.0.1'
+app.listen(3006,()=>{
 	console.log('api serve running at http://${host}:${port}')
 })

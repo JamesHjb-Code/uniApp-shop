@@ -8,9 +8,9 @@ to:处理首页操作
 const db = require('../db/index')
 
 // 获取轮播图数据
-export.getSlideshow = (req,res) =>{
+exports.getSlideShow = (req,res) =>{
 	// 定义sql语句
-	const sql = `select * from home`
+	const sql = `select * from slideimg`
 	// 调用db.query()执行sql语句
 	db.query(sql,(err,results)=>{
 		if(err) return res.lose(err)
