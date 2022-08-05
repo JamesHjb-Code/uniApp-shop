@@ -1,5 +1,10 @@
 <template>
-	<view class="content">
+	<view class="home">
+		<swiper indicator-dots circular>
+			<swiper-item v-for="item in swipers" :key="item.id">
+				<image :src="item.img"></image>
+			</swiper-item>
+		</swiper>
 	</view>
 </template>
 
@@ -7,7 +12,6 @@
 	export default {
 		data() {
 			return {
-				title: 'Hello',
 				swipers: [],
 			}
 		},
@@ -30,11 +34,15 @@
 	}
 </script>
 
-<style>
-	.content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
+<style lang="scss" scoped>
+	.home{
+		swiper{
+		width:750rpx;
+		height:380rpx;
+			image{
+				width:100%;
+				height:100%;
+			}
+		}
 	}
 </style>
