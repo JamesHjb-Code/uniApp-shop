@@ -1,8 +1,11 @@
 import App from './App'
+import { myRequest } from './util/api.js'
 
 // #ifndef VUE3
 import Vue from 'vue'
 Vue.config.productionTip = false
+// 封装api函数挂载到vue全局上
+Vue.prototype.$myRequest = myRequest
 App.mpType = 'app'
 const app = new Vue({
     ...App

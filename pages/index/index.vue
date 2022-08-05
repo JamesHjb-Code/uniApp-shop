@@ -8,7 +8,7 @@
 		data() {
 			return {
 				title: 'Hello',
-				swipers:[],
+				swipers: [],
 			}
 		},
 		onLoad() {
@@ -16,20 +16,15 @@
 		},
 		methods: {
 			// 获取轮播图数据
-			getSwipers(){
-				uni.request({
-					url:'http://127.0.0.1:3006/home/slideshow',
-					success: (res) => {
-						console.log(res)
-						if(res.data.success){
-							this.swipers = res.data.result
-						}else{
-							return uni.showToast({
-								title:'获取数据失败'
-							})
-						}
-					}
+			async getSwipers() {
+				const res = await this.$myRequest({
+					url: '/home/slideshow',
 				})
+				if (res.data.success) {
+					this.swipers = res.data.result
+				} else {
+					this.swipers = []
+				}
 			}
 		}
 	}
