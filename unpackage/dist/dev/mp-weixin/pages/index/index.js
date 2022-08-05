@@ -138,7 +138,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
 //
 //
 //
@@ -147,13 +147,31 @@ var _default =
 {
   data: function data() {
     return {
-      title: 'Hello' };
+      title: 'Hello',
+      swipers: [] };
 
   },
   onLoad: function onLoad() {
-
+    this.getSwipers();
   },
-  methods: {} };exports.default = _default;
+  methods: {
+    // 获取轮播图数据
+    getSwipers: function getSwipers() {var _this = this;
+      uni.request({
+        url: 'http://127.0.0.1:3006/home/slideshow',
+        success: function success(res) {
+          console.log(res);
+          if (res.data.success) {
+            _this.swipers = res.data.result;
+          } else {
+            return uni.showToast({
+              title: '获取数据失败' });
+
+          }
+        } });
+
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 /* 18 */
