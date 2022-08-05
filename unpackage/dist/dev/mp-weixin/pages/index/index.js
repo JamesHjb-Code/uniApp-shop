@@ -148,15 +148,63 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
     return {
-      swipers: [] };
+      swipers: [], // 轮播图数据
+      navList: [// 导航数据
+      {
+        id: 1,
+        text: '小斌超市',
+        icon: 'icon-ziyuan' },
 
+      {
+        id: 2,
+        text: '联系我们',
+        icon: 'icon-guanyuwomen' },
+
+      {
+        id: 3,
+        text: '社区图片',
+        icon: 'icon-tupian' },
+
+      {
+        id: 4,
+        text: '学习视频',
+        icon: 'icon-shipin' }],
+
+
+      hotGoodsList: [] // 热门商品列表
+    };
   },
   onLoad: function onLoad() {
     this.getSwipers();
+    this.getHotGoods();
   },
   methods: {
     // 获取轮播图数据
@@ -169,6 +217,17 @@ var _default =
                 } else {
                   _this.swipers = [];
                 }case 4:case "end":return _context.stop();}}}, _callee);}))();
+    },
+    // 获取热门商品列表数据
+    getHotGoods: function getHotGoods() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var res;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:_context2.next = 2;return (
+                  _this2.$myRequest({
+                    url: '/home/hotGodds' }));case 2:res = _context2.sent;
+
+                if (res.data.success) {
+                  _this2.hotGoodsList = res.data.result;
+                } else {
+                  _this2.hotGoodsList = [];
+                }case 4:case "end":return _context2.stop();}}}, _callee2);}))();
     } } };exports.default = _default;
 
 /***/ }),
