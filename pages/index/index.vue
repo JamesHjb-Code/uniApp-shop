@@ -17,14 +17,14 @@
 		<view class="hot-goods">
 			<view class="hot-title">热门商品</view>
 			<view class="goods-list">
-				<view class="goods-item">
-					<image class="goods-img" src="http://demo.dtcms.net/upload/201504/20/thumb_201504200046589514.jpg"></image>
+				<view class="goods-item" v-for="item in hotGoodsList" :key="item.id">
+					<image class="goods-img" :src="item.img"></image>
 					<view class="goods-price">
-						<text>￥2199</text>
-						<text>￥2499</text>
+						<text>￥{{item.marketPrice}}</text>
+						<text>￥{{item.sellPrice}}</text>
 					</view>
 					<view class="goods-name">
-						华为（HUAWEI）荣耀6Plus 16G双4G版
+						{{item.title}}
 					</view>
 				</view>
 			</view>
@@ -81,7 +81,7 @@
 			// 获取热门商品列表数据
 			async getHotGoods(){
 				const res = await this.$myRequest({
-					url:'/home/hotGodds'
+					url:'/home/hotshop'
 				})
 				if(res.data.success){
 					this.hotGoodsList = res.data.result

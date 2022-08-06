@@ -22,3 +22,18 @@ exports.getSlideShow = (req,res) =>{
 		})
 	})
 }
+// 获取热门商品数据
+exports.getHotShop = (req,res) =>{
+	// 定义sql语句
+	const sql = `select * from hotshop`
+	// 调用db.query()执行sql语句
+	db.query(sql,(err,results)=>{
+		if(err) return res.lose(err)
+		res.send({
+			message:'获取热门商品数据成功!',
+			success:true,
+			status:0,
+			result:results,
+		})
+	})
+}
