@@ -23,6 +23,10 @@ app.use((req,res,next)=>{
 const homeRouter = require('./router/home')
 app.use('/home',homeRouter)
 
+// 导入并使用社区图片路由模块
+const picsRouter = require('./router/pics')
+app.use('/pics',picsRouter)
+
 // 配置服务器
 const port = 3006
 const host = '127.0.0.1'
