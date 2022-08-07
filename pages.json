@@ -18,6 +18,12 @@
 		},
 		{
 			"path": "pages/news/news"
+		},
+		{
+			"path": "pages/shop/shop",
+			"style": {
+				"navigationBarTitleText": "商品列表"
+			}
 		}
 	],
 	"globalStyle": {

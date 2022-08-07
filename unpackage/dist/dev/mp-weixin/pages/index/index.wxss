@@ -66,35 +66,4 @@
   background: #fff;
   margin: 7rpx 0;
 }
-.home .hot-goods .goods-list.data-v-57280228 {
-  padding: 0 15rpx;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-.home .hot-goods .goods-list .goods-item.data-v-57280228 {
-  box-sizing: border-box;
-  background: #fff;
-  width: 355rpx;
-  margin: 10rpx 0rpx;
-  padding: 15rpx;
-}
-.home .hot-goods .goods-list .goods-item .goods-img.data-v-57280228 {
-  width: 80%;
-  height: 300rpx;
-}
-.home .hot-goods .goods-list .goods-item .goods-price.data-v-57280228 {
-  color: #b50e03;
-  font-size: 36rpx;
-}
-.home .hot-goods .goods-list .goods-item .goods-price text.data-v-57280228:nth-child(2) {
-  color: #ccc;
-  font-size: 28rpx;
-  margin-left: 17rpx;
-  text-decoration: line-through;
-}
-.home .hot-goods .goods-list .goods-item .goods-name.data-v-57280228 {
-  font-size: 28rpx;
-  line-height: 50rpx;
-}
 

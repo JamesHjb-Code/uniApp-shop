@@ -1,3 +1,5 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "shop-list": "/components/shop-list/shop-list"
+  }
 }
