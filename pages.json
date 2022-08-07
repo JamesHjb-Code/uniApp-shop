@@ -1,11 +1,11 @@
 {
 	"easycom": {
-			"autoscan": true,
-			"custom": {
-				// uni-ui 规则如下配置
-				"^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
-			}
-		},
+		"autoscan": true,
+		"custom": {
+			// uni-ui 规则如下配置
+			"^uni-(.*)": "@dcloudio/uni-ui/lib/uni-$1/uni-$1.vue"
+		}
+	},
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
 			"path": "pages/index/index"
@@ -14,7 +14,7 @@
 			"path": "pages/cart/cart"
 		},
 		{
-			"path":"pages/member/member"
+			"path": "pages/member/member"
 		},
 		{
 			"path": "pages/news/news"
@@ -25,29 +25,33 @@
 				"navigationBarTitleText": "商品列表",
 				"enablePullDownRefresh": true
 			}
+		}, {
+			"path": "pages/contact/contact",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/pics/pics",
+			"style": {
+				"navigationBarTitleText": "社区图片",
+				"enablePullDownRefresh": false
+			}
+
 		}
-	    ,{
-            "path" : "pages/shop/shop",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-    ],
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "小斌商城",
-		"navigationBarBackgroundColor":   "#b50e03",
+		"navigationBarBackgroundColor": "#b50e03",
 		"backgroundColor": "#F8F8F8"
 	},
 	// 底部菜单栏
 	"tabBar": {
 		"selectedColor": "#b50e03",
 		"color": "#cccccc",
-		"list":[
-			{
+		"list": [{
 				"text": "首页",
 				"pagePath": "pages/index/index",
 				"iconPath": "static/icon/home.png",
