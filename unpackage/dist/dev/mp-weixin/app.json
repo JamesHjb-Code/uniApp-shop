@@ -4,6 +4,7 @@
     "pages/cart/cart",
     "pages/member/member",
     "pages/news/news",
+    "pages/shop/shop",
     "pages/shop/shop"
   ],
   "subPackages": [],

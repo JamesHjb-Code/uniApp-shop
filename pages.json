@@ -22,10 +22,20 @@
 		{
 			"path": "pages/shop/shop",
 			"style": {
-				"navigationBarTitleText": "商品列表"
+				"navigationBarTitleText": "商品列表",
+				"enablePullDownRefresh": true
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/shop/shop",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "小斌商城",
