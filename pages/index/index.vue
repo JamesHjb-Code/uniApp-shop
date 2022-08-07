@@ -8,7 +8,7 @@
 		</swiper>
 		<!-- 导航区域 -->
 		<view class="nav">
-			<view class="nav-item" v-for="item in navList" :key="item.id">
+			<view class="nav-item" v-for="item in navList" :key="item.id" @click="clickNavItem(item.path)">
 				<view class="iconfont" :class="item.icon"></view>
 				<text class="item-text">{{item.text}}</text>
 			</view>
@@ -16,24 +16,17 @@
 		<!-- 热门商品 -->
 		<view class="hot-goods">
 			<view class="hot-title">热门商品</view>
-			<view class="goods-list">
-				<view class="goods-item" v-for="item in hotGoodsList" :key="item.id">
-					<image class="goods-img" :src="item.img"></image>
-					<view class="goods-price">
-						<text>￥{{item.marketPrice}}</text>
-						<text>￥{{item.sellPrice}}</text>
-					</view>
-					<view class="goods-name">
-						{{item.title}}
-					</view>
-				</view>
-			</view>
+			<shop-list :shopList="shopList"></shop-list>
 		</view>
 	</view>
 </template>
 
 <script>
+	import shopList from '@/components/shop-list/shop-list.vue'
 	export default {
+		components:{
+			shopList
+		},
 		data() {
 			return {
 				swipers: [], // 轮播图数据
@@ -41,25 +34,29 @@
 					{
 						id: 1,
 						text: '小斌超市',
-						icon: 'icon-ziyuan'
+						icon: 'icon-ziyuan',
+						path:'/pages/shop/shop'
 					},
 					{
 						id: 2,
 						text: '联系我们',
-						icon: 'icon-guanyuwomen'
+						icon: 'icon-guanyuwomen',
+						path:'/pages/contact/contact'
 					},
 					{
 						id: 3,
 						text: '社区图片',
-						icon: 'icon-tupian'
+						icon: 'icon-tupian',
+						path:'/pages/pics/pics'
 					},
 					{
 						id: 4,
 						text: '学习视频',
-						icon: 'icon-shipin'
+						icon: 'icon-shipin',
+						path:'pages/videos/videos'
 					},
 				],
-				hotGoodsList:[],// 热门商品列表
+				shopList:[],// 热门商品列表
 			}
 		},
 		onLoad() {
@@ -84,10 +81,16 @@
 					url:'/home/hotshop'
 				})
 				if(res.data.success){
-					this.hotGoodsList = res.data.result
+					this.shopList = res.data.result
 				}else {
-					this.hotGoodsList = []
+					this.shopList = []
 				}
+			},
+			// 点击跳转导航函数
+			clickNavItem(path){
+				uni.navigateTo({
+					url:path
+				})
 			}
 		}
 	}
@@ -143,37 +146,7 @@
 				background: #fff;
 				margin: 7rpx 0;
 			}
-			.goods-list{
-				padding:0 15rpx;
-				display: flex;
-				flex-wrap: wrap;
-				justify-content: space-between;
-				.goods-item{
-					box-sizing: border-box;
-					background: #fff;
-					width:355rpx;
-					margin:10rpx 0rpx;
-					padding:15rpx;
-					.goods-img{
-						width:80%;
-						height:300rpx;
-					}
-					.goods-price{
-						color:$shop-color;
-						font-size:36rpx;
-						text:nth-child(2){
-							color:#ccc;
-							font-size:28rpx;
-							margin-left:17rpx;
-							text-decoration: line-through;
-						}
-					}
-					.goods-name{
-						font-size:28rpx;
-						line-height: 50rpx;
-					}
-				}
-			}
+
 		}
 	}
 </style>
