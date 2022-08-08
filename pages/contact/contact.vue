@@ -5,7 +5,7 @@
 			<view class="phone-text" @click="phone">联系电话：400-2344-5555（点击拨打）</view>
 			<view class="adress-text">联系地址：广东省深圳市南山区西丽街道</view>
 		</view>
-		<map class="map-wrapper" :longitude="configMap.longitude" :scale="configMap.scale" :latitude="configMap.latitude" :markers="configMap.markers"></map>
+		<map class="map-wrapper" :longitude="mapConfig.longitude" :scale="mapConfig.scale" :latitude="mapConfig.latitude" :markers="mapConfig.markers"></map>
 	</view>
 </template>
 
@@ -14,7 +14,7 @@
 		data() {
 			return {
 				// 地图配置
-				configMap:{
+				mapConfig:{
 					longitude:113.95305,
 					latitude:22.566255,
 					scale:13,

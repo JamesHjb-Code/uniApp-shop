@@ -2,8 +2,13 @@
 	<view class="pics">
 		<scroll-view class="menu-left" scroll-y>
 			<view :class="{active:currentActive === index}" class="navigation-item" v-for="(item,index) in navigatorList" :key="item.id" @click="handleCurrent(index)">{{item.title}}</view>
-			
-		</scroll-view> 
+		</scroll-view>
+		<scroll-view class="menu-right" scroll-y>
+			<view class="item">
+				<image class="pics-img" src="/static/pics/home/houseHome.jpg"></image>
+				<text class="pics-text">沙堆请问请问请问请问请问请问请问请问请问去请问请问请问去</text>
+			</view>
+		</scroll-view>
 	</view>
 </template>
 
@@ -43,10 +48,12 @@ page{
 }
 .pics{
 	height:100%;
+	display: flex;
 	.menu-left{
 		width:200rpx;
-		height:100vh;
+		height:100%;
 		border-right:1px solid #eee;
+		
 		.navigation-item{
 			height:120rpx;
 			line-height:120rpx;
@@ -57,6 +64,23 @@ page{
 			&.active{
 				background-color: $shop-color;
 				color:#fff;
+			}
+		}
+	}
+	.menu-right{
+		width:530rpx;
+		height:100%;
+		margin:10rpx auto;
+		.item{
+			
+			.pics-img{
+				width:530rpx;
+				height:400rpx;
+				border-radius: 10px;
+			}
+			.pics-text{
+				font-size:30rpx;
+				line-height: 60rpx;
 			}
 		}
 	}

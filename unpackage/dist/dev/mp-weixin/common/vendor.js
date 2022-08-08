@@ -334,7 +334,7 @@ var promiseInterceptor = {
 
 
 var SYNC_API_RE =
-/^\$|Window$|WindowStyle$|sendHostEvent|sendNativeEvent|restoreGlobal|requireGlobal|getCurrentSubNVue|getMenuButtonBoundingClientRect|^report|interceptors|Interceptor$|getSubNVueById|requireNativePlugin|upx2px|hideKeyboard|canIUse|^create|Sync$|Manager$|base64ToArrayBuffer|arrayBufferToBase64|getLocale|setLocale|invokePushCallback|getWindowInfo|getDeviceInfo|getAppBaseInfo|getSystemSetting|getAppAuthorizeSetting/;
+/^\$|Window$|WindowStyle$|sendHostEvent|sendNativeEvent|restoreGlobal|requireGlobal|getCurrentSubNVue|getMenuButtonBoundingClientRect|^report|interceptors|Interceptor$|getSubNVueById|requireNativePlugin|upx2px|hideKeyboard|canIUse|^create|Sync$|Manager$|base64ToArrayBuffer|arrayBufferToBase64|getLocale|setLocale|invokePushCallback|getWindowInfo|getDeviceInfo|getAppBaseInfo/;
 
 var CONTEXT_API_RE = /^create|Manager$/;
 
@@ -342,7 +342,7 @@ var CONTEXT_API_RE = /^create|Manager$/;
 var CONTEXT_API_RE_EXC = ['createBLEConnection'];
 
 // 同步例外情况
-var ASYNC_API = ['createBLEConnection', 'createPushMessage'];
+var ASYNC_API = ['createBLEConnection'];
 
 var CALLBACK_API_RE = /^on|^off/;
 
@@ -761,13 +761,13 @@ function populateParameters(result) {var _result$brand =
   // wx.getAccountInfoSync
 
   var parameters = {
-    appId: "",
+    appId: "__UNI__165311E",
     appName: "uniApp-shop",
     appVersion: "1.0.0",
     appVersionCode: "100",
     appLanguage: getAppLanguage(hostLanguage),
-    uniCompileVersion: "3.5.3",
-    uniRuntimeVersion: "3.5.3",
+    uniCompileVersion: "3.4.18",
+    uniRuntimeVersion: "3.4.18",
     uniPlatform: undefined || "mp-weixin",
     deviceBrand: deviceBrand,
     deviceModel: model,
@@ -870,7 +870,7 @@ var getAppBaseInfo = {
     var hostLanguage = language.replace('_', '-');
 
     result = sortObject(Object.assign(result, {
-      appId: "",
+      appId: "__UNI__165311E",
       appName: "uniApp-shop",
       appVersion: "1.0.0",
       appVersionCode: "100",
@@ -910,19 +910,6 @@ var getWindowInfo = {
   } };
 
 
-var getAppAuthorizeSetting = {
-  returnValue: function returnValue(result) {var
-    locationReducedAccuracy = result.locationReducedAccuracy;
-
-    result.locationAccuracy = 'unsupported';
-    if (locationReducedAccuracy === true) {
-      result.locationAccuracy = 'reduced';
-    } else if (locationReducedAccuracy === false) {
-      result.locationAccuracy = 'full';
-    }
-  } };
-
-
 // import navigateTo from 'uni-helpers/navigate-to'
 
 var protocols = {
@@ -934,8 +921,7 @@ var protocols = {
   showActionSheet: showActionSheet,
   getAppBaseInfo: getAppBaseInfo,
   getDeviceInfo: getDeviceInfo,
-  getWindowInfo: getWindowInfo,
-  getAppAuthorizeSetting: getAppAuthorizeSetting };
+  getWindowInfo: getWindowInfo };
 
 var todos = [
 'vibrate',
@@ -1160,7 +1146,6 @@ function getApiCallbacks(params) {
 
 var cid;
 var cidErrMsg;
-var enabled;
 
 function normalizePushMessage(message) {
   try {
@@ -1172,25 +1157,17 @@ function normalizePushMessage(message) {
 function invokePushCallback(
 args)
 {
-  if (args.type === 'enabled') {
-    enabled = true;
-  } else if (args.type === 'clientId') {
+  if (args.type === 'clientId') {
     cid = args.cid;
     cidErrMsg = args.errMsg;
     invokeGetPushCidCallbacks(cid, args.errMsg);
   } else if (args.type === 'pushMsg') {
-    var message = {
-      type: 'receive',
-      data: normalizePushMessage(args.message) };
+    onPushMessageCallbacks.forEach(function (callback) {
+      callback({
+        type: 'receive',
+        data: normalizePushMessage(args.message) });
 
-    for (var i = 0; i < onPushMessageCallbacks.length; i++) {
-      var callback = onPushMessageCallbacks[i];
-      callback(message);
-      // 该消息已被阻止
-      if (message.stopped) {
-        break;
-      }
-    }
+    });
   } else if (args.type === 'click') {
     onPushMessageCallbacks.forEach(function (callback) {
       callback({
@@ -1210,7 +1187,7 @@ function invokeGetPushCidCallbacks(cid, errMsg) {
   getPushCidCallbacks.length = 0;
 }
 
-function getPushClientId(args) {
+function getPushClientid(args) {
   if (!isPlainObject(args)) {
     args = {};
   }var _getApiCallbacks =
@@ -1222,32 +1199,25 @@ function getPushClientId(args) {
   var hasSuccess = isFn(success);
   var hasFail = isFn(fail);
   var hasComplete = isFn(complete);
-  Promise.resolve().then(function () {
-    if (typeof enabled === 'undefined') {
-      enabled = false;
-      cid = '';
-      cidErrMsg = 'unipush is not enabled';
-    }
-    getPushCidCallbacks.push(function (cid, errMsg) {
-      var res;
-      if (cid) {
-        res = {
-          errMsg: 'getPushClientId:ok',
-          cid: cid };
+  getPushCidCallbacks.push(function (cid, errMsg) {
+    var res;
+    if (cid) {
+      res = {
+        errMsg: 'getPushClientid:ok',
+        cid: cid };
 
-        hasSuccess && success(res);
-      } else {
-        res = {
-          errMsg: 'getPushClientId:fail' + (errMsg ? ' ' + errMsg : '') };
+      hasSuccess && success(res);
+    } else {
+      res = {
+        errMsg: 'getPushClientid:fail' + (errMsg ? ' ' + errMsg : '') };
 
-        hasFail && fail(res);
-      }
-      hasComplete && complete(res);
-    });
-    if (typeof cid !== 'undefined') {
-      invokeGetPushCidCallbacks(cid, cidErrMsg);
+      hasFail && fail(res);
     }
+    hasComplete && complete(res);
   });
+  if (typeof cid !== 'undefined') {
+    Promise.resolve().then(function () {return invokeGetPushCidCallbacks(cid, cidErrMsg);});
+  }
 }
 
 var onPushMessageCallbacks = [];
@@ -1271,7 +1241,7 @@ var offPushMessage = function offPushMessage(fn) {
 
 var api = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  getPushClientId: getPushClientId,
+  getPushClientid: getPushClientid,
   onPushMessage: onPushMessage,
   offPushMessage: offPushMessage,
   invokePushCallback: invokePushCallback });
@@ -1430,7 +1400,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"VUE_APP_NAME":"uniApp-shop","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"uniApp-shop","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -1525,25 +1495,18 @@ function parsePropType(key, type, defaultValue, file) {
   return type;
 }
 
-function initProperties(props) {var isBehavior = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;var file = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';var options = arguments.length > 3 ? arguments[3] : undefined;
+function initProperties(props) {var isBehavior = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;var file = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
   var properties = {};
   if (!isBehavior) {
     properties.vueId = {
       type: String,
       value: '' };
 
-    {
-      if (options.virtualHost) {
-        properties.virtualHostStyle = {
-          type: null,
-          value: '' };
+    // 用于字节跳动小程序模拟抽象节点
+    properties.generic = {
+      type: Object,
+      value: null };
 
-        properties.virtualHostClass = {
-          type: null,
-          value: '' };
-
-      }
-    }
     // scopedSlotsCompiler auto
     properties.scopedSlotsCompiler = {
       type: String,
@@ -1839,9 +1802,7 @@ function handleEvent(event) {var _this2 = this;
           }
           var handler = handlerCtx[methodName];
           if (!isFn(handler)) {
-            var _type = _this2.$vm.mpType === 'page' ? 'Page' : 'Component';
-            var path = _this2.route || _this2.is;
-            throw new Error("".concat(_type, " \"").concat(path, "\" does not have a method \"").concat(methodName, "\""));
+            throw new Error(" _vm.".concat(methodName, " is not a function"));
           }
           if (isOnce) {
             if (handler.once) {
@@ -2224,7 +2185,7 @@ function parseBaseComponent(vueComponentOptions)
     options: options,
     data: initData(vueOptions, _vue.default.prototype),
     behaviors: initBehaviors(vueOptions, initBehavior),
-    properties: initProperties(vueOptions.props, false, vueOptions.__file, options),
+    properties: initProperties(vueOptions.props, false, vueOptions.__file),
     lifetimes: {
       attached: function attached() {
         var properties = this.properties;
@@ -8518,7 +8479,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"VUE_APP_NAME":"uniApp-shop","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"NODE_ENV":"development","VUE_APP_NAME":"uniApp-shop","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -8539,14 +8500,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"VUE_APP_NAME":"uniApp-shop","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"uniApp-shop","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"VUE_APP_NAME":"uniApp-shop","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"uniApp-shop","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -8632,7 +8593,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"VUE_APP_NAME":"uniApp-shop","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"uniApp-shop","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -9042,9 +9003,9 @@ internalMixin(Vue);
 
 /***/ }),
 /* 5 */
-/*!*****************************************************!*\
-  !*** C:/Users/90731/Desktop/uniApp-shop/pages.json ***!
-  \*****************************************************/
+/*!*************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/uniApp-shop/pages.json ***!
+  \*************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -9185,9 +9146,9 @@ function normalizeComponent (
 
 /***/ }),
 /* 12 */
-/*!******************************************************!*\
-  !*** C:/Users/90731/Desktop/uniApp-shop/util/api.js ***!
-  \******************************************************/
+/*!**************************************************************!*\
+  !*** C:/Users/Administrator/Desktop/uniApp-shop/util/api.js ***!
+  \**************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
