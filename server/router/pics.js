@@ -9,5 +9,6 @@ const router = express.Router()
 const pics_handler = require('../router_handler/pics')
 // 获取导航列表数据
 router.get('/navigator',pics_handler.getNavigatorList)
-
+// 获取根据导航id-详情内容
+router.get('/commundetail',pics_handler.getcommunDetail)
 module.exports = router

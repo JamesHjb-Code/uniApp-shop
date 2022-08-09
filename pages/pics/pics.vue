@@ -1,13 +1,14 @@
 <template>
 	<view class="pics">
 		<scroll-view class="menu-left" scroll-y>
-			<view :class="{active:currentActive === index}" class="navigation-item" v-for="(item,index) in navigatorList" :key="item.id" @click="handleCurrent(index)">{{item.title}}</view>
+			<view :class="{active:currentActive === index}" class="navigation-item" v-for="(item,index) in navigatorList" :key="item.id" @click="handleCurrent(index,item.father_id)">{{item.title}}</view>
 		</scroll-view>
 		<scroll-view class="menu-right" scroll-y>
-			<view class="item">
-				<image class="pics-img" src="/static/pics/home/houseHome.jpg"></image>
-				<text class="pics-text">沙堆请问请问请问请问请问请问请问请问请问去请问请问请问去</text>
+			<view class="item" v-for="item in detailList" :key="item.id">
+				<image class="pics-img" :src="item.img"></image>
+				<text class="pics-text">{{item.text}}</text>
 			</view>
+			<view class="nodata-text"><text v-if="detailList.length === 0" >暂无数据</text></view>
 		</scroll-view>
 	</view>
 </template>
@@ -16,7 +17,8 @@
 	export default {
 		data() {
 			return {
-				navigatorList:[],
+				navigatorList:[], //导航列表
+				detailList:[], //详情内容列表
 				currentActive:0
 			}
 		},
@@ -31,12 +33,26 @@
 				})
 				if(res.data.success){
 					this.navigatorList = res.data.result
+					const currentIndex = 0 //初始化时默认为第一个的列表
+					this.handleCurrent(currentIndex,this.navigatorList[currentIndex].father_id)
 				}else{
 					this.navigatorList = []
 				}
 			},
-			handleCurrent(index){
+			async handleCurrent(index,id){
 				this.currentActive = index
+				const params = {
+					id:id
+				}
+				const res = await this.$myRequest({
+					url:'/pics/commundetail',
+					data:params
+				})
+				if(res.data.success){
+					this.detailList = res.data.result
+				}else{
+					this.detailList = []
+				}
 			}
 		}
 	}
@@ -82,6 +98,12 @@ page{
 				font-size:30rpx;
 				line-height: 60rpx;
 			}
+			
+		}
+		.nodata-text{
+			width: 100%;
+			padding:20rpx 0;
+			text-align: center;
 		}
 	}
 }

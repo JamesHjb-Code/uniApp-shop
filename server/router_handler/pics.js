@@ -20,3 +20,18 @@ exports.getNavigatorList = (req,res)=>{
 		})
 	})
 }
+
+// 根据导航id获取社区详情内容
+exports.getcommunDetail = (req,res) =>{
+	const params = parseInt(req.query.id)
+	const sql = 'select * from commundetail where father_id = ?'
+	db.query(sql,[params],(err,results)=>{
+		if(err) return res.lose(err)
+		res.send({
+			message:'获取社区详情数据成功',
+			success:true,
+			status:0,
+			result:results
+		})
+	})
+}
