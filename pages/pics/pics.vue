@@ -5,7 +5,7 @@
 		</scroll-view>
 		<scroll-view class="menu-right" scroll-y>
 			<view class="item" v-for="item in detailList" :key="item.id">
-				<image class="pics-img" :src="item.img"></image>
+				<image class="pics-img" :src="item.img" @click="previewImg()"></image>
 				<text class="pics-text">{{item.text}}</text>
 			</view>
 			<view class="nodata-text"><text v-if="detailList.length === 0" >暂无数据</text></view>
@@ -39,6 +39,7 @@
 					this.navigatorList = []
 				}
 			},
+			// 获取根据导航id进行详情内容数据
 			async handleCurrent(index,id){
 				this.currentActive = index
 				const params = {
@@ -53,6 +54,16 @@
 				}else{
 					this.detailList = []
 				}
+			},
+			// 点击预览图片
+			previewImg(){
+				// 遍历拿到所有图片
+				const urls = this.detailList.map(item=>{
+					return item.img
+				})
+				uni.previewImage({
+					urls
+				})
 			}
 		}
 	}
