@@ -1,61 +1,39 @@
 <template>
 	<view class="news">
-		<view class="news-item">
-			<image class="news-img" src="/static/pics/animeone.jpeg"></image>
-			<view class="right-content">
-				<view class="news-title">
-					1季度多家房企利润跌幅超50%，去库存促销战打响
-				</view>
-				<view class="news-info">
-					<text>发表时间：</text>
-					<text>浏览：</text>
-				</view>
-			</view>
-		</view>
+		<news-list :newsList="newsList"></news-list>
 	</view>
 </template>
 
 <script>
+	import newsList from '@/components/news-list/news-list.vue'
 	export default {
+		components: {
+			newsList
+		},
 		data() {
 			return {
-
+				newsList: []
 			}
 		},
+		onLoad() {
+			this.getNewsList()
+		},
 		methods: {
-
+			// 获取资讯列表
+			async getNewsList() {
+				const res = await this.$myRequest({
+					url: '/news/information'
+				})
+				if (res.data.success) {
+					this.newsList = res.data.result
+				} else {
+					this.newsList = []
+				}
+			}
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
-	.news {
-		.news-item {
-			display: flex;
-			padding: 10rpx 20rpx;
-			border-bottom: 1px solid $shop-color;
-
-			.news-img {
-				max-width: 250rpx;
-				height: 150rpx;
-			}
-
-			.right-content {
-				margin-left: 15rpx;
-				display: flex;
-				flex-direction: column;
-				justify-content: space-between;
-				.news-title {
-					font-size: 33rpx;
-				}
-
-				.news-info {
-					font-size:24rpx;
-					text:nth-child(2){
-						margin-left: 30rpx;
-					}
-				}
-			}
-		}
-	}
+	.news {}
 </style>
