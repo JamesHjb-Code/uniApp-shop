@@ -7,7 +7,7 @@
 					<text>{{item.title}}</text>
 				</view>
 				<view class="news-info">
-					<text>发表时间：{{item.create_time}}</text>
+					<text>发表时间：{{deliverTime(item.create_time)}}</text>
 					<text>浏览：{{item.browse_count}}</text>
 				</view>
 			</view>
@@ -17,6 +17,7 @@
 </template>
 
 <script>
+	import moment from 'moment'
 	export default {
 		props: {
 			newsList: {
@@ -26,11 +27,13 @@
 		},
 		data() {
 			return {
-
+				
 			}
 		},
 		methods: {
-
+			deliverTime(date){
+				return moment(date).format("YYYY-MM-DD HH:mm:ss")
+			}
 		}
 	}
 </script>
