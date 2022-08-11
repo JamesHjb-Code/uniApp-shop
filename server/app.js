@@ -27,6 +27,10 @@ app.use('/home',homeRouter)
 const picsRouter = require('./router/pics')
 app.use('/pics',picsRouter)
 
+// 导入并使用资讯路由模块
+const newsRouter = require('./router/news')
+app.use('/news',newsRouter)
+
 // 配置服务器
 const port = 3006
 const host = '127.0.0.1'
