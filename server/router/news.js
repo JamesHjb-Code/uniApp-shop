@@ -10,5 +10,6 @@ const router = express.Router()
 const news_handler = require('../router_handler/news')
 // 获取资讯列表
 router.get('/information',news_handler.getNewsList)
-
+// 获取根据资讯id详情内容
+router.get('/getDetail',news_handler.getnewsDetail)
 module.exports = router

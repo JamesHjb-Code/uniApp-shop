@@ -1,6 +1,6 @@
 <template>
 	<view class="news">
-		<news-list :newsList="newsList"></news-list>
+		<news-list @itemClick="itemClick" :newsList="newsList"></news-list>
 	</view>
 </template>
 
@@ -29,6 +29,11 @@
 				} else {
 					this.newsList = []
 				}
+			},
+			itemClick(getId){
+				uni.navigateTo({
+					url:'/pages/news-detail/news-detail?id='+getId
+				})
 			}
 		}
 	}

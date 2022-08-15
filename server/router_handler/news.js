@@ -19,3 +19,17 @@ exports.getNewsList = (req,res) =>{
 		})
 	})
 }
+// 根据资讯Id获取详情内容
+exports.getnewsDetail = (req,res) =>{
+	const id = parseInt(req.query.id)
+	const sql = `select * from news where id=?`
+	db.query(sql,[id],(err,results)=>{
+		if(err) return res.lose(err)
+		res.send({
+			message:'获取资讯详情成功',
+			success:true,
+			status:0,
+			result:results
+		})
+	})
+}

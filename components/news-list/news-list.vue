@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="news-item" v-for="item in newsList" :key="item.id">
+		<view class="news-item" v-for="item in newsList" :key="item.id" @click="navigator(item.id)">
 			<image class="news-img" :src="item.img"></image>
 			<view class="right-content">
 				<view class="news-title">
@@ -33,6 +33,9 @@
 		methods: {
 			deliverTime(date){
 				return moment(date).format("YYYY-MM-DD HH:mm:ss")
+			},
+			navigator(id){
+				this.$emit('itemClick',id)
 			}
 		}
 	}
