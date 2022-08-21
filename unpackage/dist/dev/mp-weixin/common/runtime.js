@@ -105,11 +105,11 @@
 /******/
 /******/
 /******/ 		// mini-css-extract-plugin CSS loading
-/******/ 		var cssChunks = {"components/shop-list/shop-list":1,"components/news-list/news-list":1};
+/******/ 		var cssChunks = {"components/shop-list/shop-list":1,"components/news-list/news-list":1,"node-modules/@dcloudio/uni-ui/lib/uni-goods-nav/uni-goods-nav":1,"node-modules/@dcloudio/uni-ui/lib/uni-icons/uni-icons":1};
 /******/ 		if(installedCssChunks[chunkId]) promises.push(installedCssChunks[chunkId]);
 /******/ 		else if(installedCssChunks[chunkId] !== 0 && cssChunks[chunkId]) {
 /******/ 			promises.push(installedCssChunks[chunkId] = new Promise(function(resolve, reject) {
-/******/ 				var href = "" + ({"components/shop-list/shop-list":"components/shop-list/shop-list","components/news-list/news-list":"components/news-list/news-list"}[chunkId]||chunkId) + ".wxss";
+/******/ 				var href = "" + ({"components/shop-list/shop-list":"components/shop-list/shop-list","components/news-list/news-list":"components/news-list/news-list","node-modules/@dcloudio/uni-ui/lib/uni-goods-nav/uni-goods-nav":"node-modules/@dcloudio/uni-ui/lib/uni-goods-nav/uni-goods-nav","node-modules/@dcloudio/uni-ui/lib/uni-icons/uni-icons":"node-modules/@dcloudio/uni-ui/lib/uni-icons/uni-icons"}[chunkId]||chunkId) + ".wxss";
 /******/ 				var fullhref = __webpack_require__.p + href;
 /******/ 				var existingLinkTags = document.getElementsByTagName("link");
 /******/ 				for(var i = 0; i < existingLinkTags.length; i++) {
