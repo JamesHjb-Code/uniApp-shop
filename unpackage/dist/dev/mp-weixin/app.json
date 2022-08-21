@@ -6,7 +6,9 @@
     "pages/news/news",
     "pages/shop/shop",
     "pages/contact/contact",
-    "pages/pics/pics"
+    "pages/pics/pics",
+    "pages/news-detail/news-detail",
+    "pages/shop-detail/shop-detail"
   ],
   "subPackages": [],
   "window": {

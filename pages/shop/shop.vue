@@ -1,7 +1,7 @@
 
 <template>
 	<view class="shop">
-		<shop-list :shopList="shopList"></shop-list>
+		<shop-list @goShopDetail="goShopDetail" :shopList="shopList"></shop-list>
 		<view class="bottom-text" v-if="isBottom"><text>{{bottomText}}</text></view>
 	</view>
 </template>
@@ -14,9 +14,9 @@ import shopList from '@/components/shop-list/shop-list.vue'
 		},	
 		data() {
 			return {
-				shopList:[], // ÉÌÆ·ÁĞ±í
-				currentPage:1, // Ò³Êı
-				isBottom:false, //ÊÇ·ñÏÔÊ¾µ×²¿
+				shopList:[], // å•†å“åˆ—è¡¨
+				currentPage:1, //é»˜è®¤åˆ†é¡µä¸º1
+				isBottom:false, //æ˜¯å¦ä¸‹æ‹‰
 				bottomText:'Have been to'
 			}
 		},
@@ -24,13 +24,13 @@ import shopList from '@/components/shop-list/shop-list.vue'
 			this.getShopList()
 		},
 		onReachBottom(){
-			// ´¥µ×ÁËµ×²¿
+			// ä¸Šæ‹‰è§¦åº•
 			if(this.shopList.length < this.currentPage*10) return this.isBottom = true
 			this.currentPage++
 			this.getShopList()
 		},
 		onPullDownRefresh() {
-			// ÏÂÀ­Ë¢ĞÂ
+			// ä¸‹æ‹‰åˆ·æ–°
 			this.currentPage = 1
 			this.shopList = []
 			this.isBottom = false
@@ -41,7 +41,7 @@ import shopList from '@/components/shop-list/shop-list.vue'
 			},1500)
 		},
 		methods: {
-			// »ñÈ¡ÉÌÆ·ÁĞ±íÊı¾İ
+			// æ¸²æŸ“å•†å“åˆ—è¡¨
 			async getShopList(callBack){
 				const params = {
 					page:this.currentPage,
@@ -57,6 +57,12 @@ import shopList from '@/components/shop-list/shop-list.vue'
 					this.shopList = []
 				}
 				callBack && callBack()
+			},
+			// è·³è½¬åˆ°å¯¼èˆªè¯¦æƒ…
+			goShopDetail(id){
+				uni.navigateTo({
+					url:'/pages/shop-detail/shop-detail?id='+id
+				})
 			}
 		}
 	}

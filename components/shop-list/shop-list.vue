@@ -1,6 +1,6 @@
 <template>
 	<view class="goods-list">
-		<view class="goods-item" v-for="item in shopList" :key="item.id">
+		<view class="goods-item" v-for="item in shopList" :key="item.id" @click="goShopDetail(item.id)">
 			<image class="goods-img" :src="item.img"></image>
 			<view class="goods-price">
 				<text>￥{{item.marketPrice}}</text>
@@ -28,7 +28,9 @@
 		},
 		
 		methods: {
-
+			goShopDetail(id){
+				this.$emit('goShopDetail',id)
+			}
 		}
 	}
 </script>

@@ -16,7 +16,7 @@
 		<!-- 热门商品 -->
 		<view class="hot-goods">
 			<view class="hot-title">热门商品</view>
-			<shop-list :shopList="shopList"></shop-list>
+			<shop-list :shopList="shopList" @goShopDetail="goShopDetail"></shop-list>
 		</view>
 	</view>
 </template>
@@ -90,6 +90,12 @@
 			clickNavItem(path){
 				uni.navigateTo({
 					url:path
+				})
+			},
+			// 点击跳转到商品详情
+			goShopDetail(id){
+				uni.navigateTo({
+					url:'/pages/shop-detail/shop-detail?id='+id
 				})
 			}
 		}

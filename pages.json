@@ -26,11 +26,7 @@
 				"enablePullDownRefresh": true
 			}
 		}, {
-			"path": "pages/contact/contact",
-			"style": {
-				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
-			}
+			"path": "pages/contact/contact"
 
 		}, {
 			"path": "pages/pics/pics",
@@ -41,13 +37,10 @@
 
 		}
 	    ,{
-            "path" : "pages/news-detail/news-detail",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
+            "path" : "pages/news-detail/news-detail"    
+        }
+        ,{
+            "path" : "pages/shop-detail/shop-detail"
         }
     ],
 	"globalStyle": {
